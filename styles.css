@@ -19,6 +19,8 @@
   --black-1: #0a0a0a;
   --black-2: #121212;
   --black-3: #1a1a1a;
+  /* sampled from header-logo.png's own background so the header blends into the logo art */
+  --header-bg: #050404;
   --gray-1: #2a2a2a;
   --gray-2: #4a4a4a;
   --gray-3: #7a7a7a;
@@ -79,6 +81,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
+/* This site has one theme only, so lock the color scheme: prevents the browser
+   from swapping in light-mode UA styling (form controls, scrollbars) when the
+   OS/browser is set to light mode. */
+:root { color-scheme: dark; }
 
 html { -webkit-text-size-adjust: 100%; }
 
@@ -196,7 +203,7 @@ a:hover { color: var(--red-glow); }
   justify-content: space-between;
   gap: 20px;
   padding: 12px var(--container-pad);
-  background: var(--black-1);
+  background: var(--header-bg);
   border-bottom: var(--border-hairline);
   font-family: var(--font-heading);
 }
@@ -285,7 +292,7 @@ a:hover { color: var(--red-glow); }
     align-items: stretch;
     justify-content: flex-start;
     gap: 0;
-    background: var(--black-1);
+    background: var(--header-bg);
     border-bottom: var(--border-hairline);
     padding: 8px var(--container-pad) 24px;
     transform: translateY(-12px);
