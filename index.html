@@ -49,23 +49,47 @@
 
 <main id="main">
 
-  <section class="hero" aria-label="Introduction">
-    <img class="hero__media" src="images/hero-amg-c63s.jpg" alt="Matte burgundy Mercedes-AMG C63 S coupe, rear three-quarter view" width="1671" height="941" loading="eager" fetchpriority="high">
-    <div class="hero__scrim" aria-hidden="true"></div>
-    <div class="hero__content">
-      <div class="hero__eyebrow">
-        <span class="bar" aria-hidden="true"></span>
-        <span class="label">Mobile Detailing, Brisbane</span>
+  <section class="hero-cinema" id="heroCinema" aria-label="Introduction">
+    <script>
+      /* Decide desktop-cinematic vs. simple mode before first paint, so there's
+         no flash of the wrong layout while main.js is still loading. */
+      if (window.matchMedia('(max-width: 900px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.currentScript.closest('.hero-cinema').classList.add('hero-cinema--simple');
+      }
+    </script>
+    <div class="hero-cinema__pin">
+      <img class="hero-cinema__media" id="heroPoster" src="images/hero-amg-c63s.jpg" alt="Matte burgundy Mercedes-AMG C63 S coupe, rear three-quarter view, camera orbiting to the front" width="1671" height="941" loading="eager" fetchpriority="high">
+      <video class="hero-cinema__media hero-cinema__media--video" id="heroVideo" muted playsinline preload="none" aria-hidden="true"></video>
+      <div class="hero-cinema__scrim" aria-hidden="true"></div>
+
+      <div class="hero-cinema__content hero-cinema__content--start" id="heroContentStart">
+        <div class="hero__eyebrow">
+          <span class="bar" aria-hidden="true"></span>
+          <span class="label">Mobile Detailing, Brisbane</span>
+        </div>
+        <h1 class="hero__title">Professional Car Care.<br>Brought To You.</h1>
+        <div class="hero__rule" aria-hidden="true"></div>
+        <p class="hero__lede">We wash, protect and detail your car at your own driveway or workplace. Professional workmanship and quality products, with a straight answer about what your car actually needs.</p>
+        <div class="hero__ctas">
+          <a class="btn btn-primary" href="contact.html#enquiry">Book a Detail <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-secondary" href="tel:0426498560">Call 0426 498 560</a>
+        </div>
+        <div class="hero__meta">
+          <span>Mobile Detailing</span><span aria-hidden="true">&middot;</span><span>Brisbane + Surrounds</span><span aria-hidden="true">&middot;</span><span>Interior, Exterior, Protection</span>
+        </div>
       </div>
-      <h1 class="hero__title">Professional Car Care.<br>Brought To You.</h1>
-      <div class="hero__rule" aria-hidden="true"></div>
-      <p class="hero__lede">We wash, protect and detail your car at your own driveway or workplace. Professional workmanship and quality products, with a straight answer about what your car actually needs.</p>
-      <div class="hero__ctas">
-        <a class="btn btn-primary" href="contact.html#enquiry">Book a Detail <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="btn btn-secondary" href="tel:0426498560">Call 0426 498 560</a>
-      </div>
-      <div class="hero__meta">
-        <span>Mobile Detailing</span><span aria-hidden="true">&middot;</span><span>Brisbane + Surrounds</span><span aria-hidden="true">&middot;</span><span>Interior, Exterior, Protection</span>
+
+      <div class="hero-cinema__content hero-cinema__content--end" id="heroContentEnd">
+        <div class="hero__eyebrow">
+          <span class="bar" aria-hidden="true"></span>
+          <span class="label">Platinum Car Care</span>
+        </div>
+        <h2 class="hero__title">A Higher Standard Of Care.</h2>
+        <div class="hero__rule" aria-hidden="true"></div>
+        <p class="hero__lede">Professional detailing, protection and maintenance, delivered wherever your vehicle is.</p>
+        <div class="hero__ctas">
+          <a class="btn btn-primary" href="contact.html#enquiry">Book a Detail <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
       </div>
     </div>
   </section>

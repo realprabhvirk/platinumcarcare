@@ -340,40 +340,74 @@ a:hover { color: var(--red-glow); }
   }
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero: cinematic scroll-scrubbed video ---------- */
 
-.hero {
+/* Tall scroll track; the pin below rides sticky inside it. Desktop default. */
+.hero-cinema {
   position: relative;
-  min-height: 620px;
-  background: var(--black-1);
-  display: flex;
-  align-items: center;
+  height: 300vh;
+}
+.hero-cinema__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
+  background: var(--black-1);
   border-bottom: var(--border-hairline);
 }
-.hero__media {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 58%;
-  object-fit: cover;
-  opacity: .92;
-}
-.hero__scrim {
+.hero-cinema__media {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--black-1) 38%, transparent 68%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.hero__content {
-  position: relative;
+.hero-cinema__media--video {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-standard);
+}
+.hero-cinema__media--video.is-ready { opacity: 1; }
+
+/* Cinematic scrim: readable over text on the left, car stays visually dominant
+   on the right and through the middle (no flattening wash over the whole frame). */
+.hero-cinema__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--black-1) 0%, rgba(10, 10, 10, .78) 20%, rgba(10, 10, 10, .28) 42%, rgba(10, 10, 10, 0) 60%),
+    linear-gradient(0deg, rgba(10, 10, 10, .55) 0%, rgba(10, 10, 10, 0) 26%);
+  pointer-events: none;
+}
+
+.hero-cinema__content {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  padding: 64px var(--container-pad);
+  padding: 0 var(--container-pad);
   max-width: 600px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 22px;
+  will-change: opacity, transform;
 }
+.hero-cinema__content--end { opacity: 0; }
+
+@media (max-width: 900px) {
+  /* Simplified mobile/reduced-motion hero: single viewport, no pin, no video,
+     just the poster frame behind the initial text (JS applies this class). */
+  .hero-cinema--simple { height: auto; }
+  .hero-cinema--simple .hero-cinema__pin { position: relative; height: 100vh; }
+  .hero-cinema--simple .hero-cinema__media--video { display: none; }
+  .hero-cinema--simple .hero-cinema__content--end { display: none; }
+  .hero-cinema--simple .hero-cinema__content--start {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+  .hero-cinema__content { padding: 36px 20px 44px; max-width: 100%; }
+}
+
 .hero__eyebrow {
   display: flex;
   align-items: center;
@@ -428,25 +462,6 @@ a:hover { color: var(--red-glow); }
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--text-muted);
-}
-
-@media (max-width: 860px) {
-  .hero {
-    flex-direction: column;
-    min-height: auto;
-  }
-  .hero__media {
-    position: static;
-    width: 100%;
-    height: 280px;
-    opacity: 1;
-    order: -1;
-  }
-  .hero__scrim { display: none; }
-  .hero__content {
-    max-width: 100%;
-    padding: 36px 20px 44px;
-  }
 }
 
 /* ---------- Section shell ---------- */
