@@ -208,7 +208,7 @@ a:hover { color: var(--red-glow); }
   font-family: var(--font-heading);
 }
 
-.site-header__logo img { height: 40px; }
+.site-header__logo img { height: 40px; width: auto; }
 
 .nav-toggle {
   display: none;
@@ -752,7 +752,7 @@ a:hover { color: var(--red-glow); }
 @media (max-width: 700px) {
   .site-footer__grid { grid-template-columns: 1fr; gap: 28px; }
 }
-.site-footer__logo { height: 44px; margin-bottom: 16px; }
+.site-footer__logo { height: 44px; width: auto; margin-bottom: 16px; }
 .site-footer__blurb {
   color: var(--text-muted);
   font-size: var(--text-body-sm);
