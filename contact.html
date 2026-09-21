@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Platinum Car Care</title>
+<meta name="description" content="Book a mobile detail in Brisbane, Logan, Ipswich, Redlands or Moreton Bay. Fill in the enquiry form or call 0426 498 560, we reply with a clear next step.">
+<link rel="canonical" href="/contact.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Platinum Car Care">
+<meta property="og:description" content="Tell us about your car. Fill in the form or call us directly, we reply with a clear next step.">
+<meta property="og:image" content="images/hero-car.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <a class="site-header__logo" href="index.html">
+    <img src="images/header-logo.png" alt="Platinum Mobile Car Care" width="220" height="74">
+  </a>
+
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+    <span class="nav-toggle__bars"></span>
+  </button>
+
+  <nav class="site-nav" id="site-nav" aria-label="Primary">
+    <ul class="site-nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" aria-current="page">Contact</a></li>
+    </ul>
+    <div class="site-nav__actions">
+      <a class="btn btn-primary" href="contact.html#enquiry">Book a Detail <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      <span class="site-nav__divider" aria-hidden="true">|</span>
+      <a class="site-nav__phone" href="tel:0426498560">0426 498 560</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="section__inner">
+      <div class="section-heading__eyebrow">
+        <span class="bar" aria-hidden="true"></span>
+        <span class="label">Contact</span>
+      </div>
+      <h1 class="page-hero__title">Tell Us About Your Car.</h1>
+      <p class="page-hero__lede">Fill in the form below or call us directly. We reply with a clear next step, no back and forth runaround.</p>
+    </div>
+  </section>
+
+  <section class="section" id="enquiry" style="padding-top: 64px; padding-bottom: 64px;">
+    <div class="section__inner">
+      <div class="enquiry-grid">
+
+        <div>
+          <div class="success-panel" id="successPanel" hidden>
+            <h2 class="success-panel__title">Got It, Thanks.</h2>
+            <p class="success-panel__desc">We've got your details and we'll be in touch with a clear next step. If it's urgent, call us on <a href="tel:0426498560">0426 498 560</a>.</p>
+          </div>
+
+          <form class="enquiry-form" id="enquiryForm" novalidate>
+            <div class="form-row">
+              <div>
+                <label class="field-label" for="f-name">Name</label>
+                <input class="field" id="f-name" name="name" type="text" required autocomplete="name">
+              </div>
+              <div>
+                <label class="field-label" for="f-phone">Phone</label>
+                <input class="field" id="f-phone" name="phone" type="tel" required autocomplete="tel">
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label class="field-label" for="f-email">Email</label>
+                <input class="field" id="f-email" name="email" type="email" required autocomplete="email">
+              </div>
+              <div>
+                <label class="field-label" for="f-suburb">Suburb / Location</label>
+                <input class="field" id="f-suburb" name="suburb" type="text" required autocomplete="address-level2">
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label class="field-label" for="f-vehicle">Vehicle Type</label>
+                <input class="field" id="f-vehicle" name="vehicle" type="text" placeholder="e.g. Sedan, SUV, Ute" required>
+              </div>
+              <div>
+                <label class="field-label" for="f-location-type">Home Or Workplace</label>
+                <select class="field" id="f-location-type" name="locationType" required>
+                  <option value="">Select one</option>
+                  <option value="home">Home</option>
+                  <option value="workplace">Workplace</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="field-label" for="f-service">Desired Service</label>
+              <select class="field" id="f-service" name="service" required>
+                <option value="">Select a service</option>
+                <option value="exterior-wash-wax">Exterior Wash &amp; Wax</option>
+                <option value="interior-deep-clean">Interior Deep Clean</option>
+                <option value="paint-protection">Paint Protection</option>
+                <option value="ceramic-coating">Ceramic Coating</option>
+                <option value="mobile-detailing">Mobile Detailing</option>
+                <option value="maintenance-details">Maintenance Details</option>
+                <option value="not-sure">Not Sure, Advise Me</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="f-notes">Notes (Optional)</label>
+              <textarea class="field" id="f-notes" name="notes" rows="4"></textarea>
+            </div>
+            <p class="form-error" id="formError" role="alert" hidden>Fill in every field above, notes are optional, and we will get back to you with a clear next step.</p>
+            <div>
+              <button type="submit" class="btn btn-primary">Send Enquiry <span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-aside">
+          <div class="contact-card">
+            <h2 class="contact-card__title">Direct Contact</h2>
+            <div class="contact-card__links">
+              <a class="phone" href="tel:0426498560">0426 498 560</a>
+              <a class="muted" href="mailto:bookings@platinumcarcare.com.au">bookings@platinumcarcare.com.au</a>
+              <a class="muted" href="https://instagram.com/platinum._carcare">@platinum._carcare</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <h2 class="contact-card__title">Service Area</h2>
+            <p class="contact-card__desc">Servicing Brisbane, Logan, Ipswich, Redlands, Moreton Bay, and surrounding suburbs.</p>
+            <p class="contact-card__note">Outside this list? Get in touch to confirm we can reach you.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div>
+      <img class="site-footer__logo" src="images/header-logo.png" alt="Platinum Mobile Car Care">
+      <p class="site-footer__blurb">Professional mobile car detailing, brought to your driveway or workplace across Brisbane.</p>
+    </div>
+    <div>
+      <h3 class="site-footer__heading">Navigate</h3>
+      <ul class="site-footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="site-footer__heading">Contact</h3>
+      <ul class="site-footer__links">
+        <li><a href="tel:0426498560">0426 498 560</a></li>
+        <li><a href="mailto:bookings@platinumcarcare.com.au">bookings@platinumcarcare.com.au</a></li>
+        <li><a href="https://instagram.com/platinum._carcare">@platinum._carcare</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>&copy; 2026 Platinum Car Care. Servicing Brisbane, Logan, Ipswich, Redlands and Moreton Bay.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
