@@ -569,7 +569,7 @@ a:hover { color: var(--red-glow); }
 }
 .service-card__media {
   position: relative;
-  height: 160px;
+  aspect-ratio: 1 / 1;
 }
 .service-card__media img {
   width: 100%;
@@ -619,6 +619,71 @@ a:hover { color: var(--red-glow); }
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--red-1);
+}
+
+/* ---------- Gallery (real jobs, real cars) ---------- */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+@media (max-width: 1100px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  clip-path: var(--diagonal-clip-sm);
+  background: var(--bg-surface);
+}
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-standard);
+}
+.gallery-item:hover img,
+.gallery-item:hover video,
+.gallery-item:focus-within img,
+.gallery-item:focus-within video {
+  transform: scale(1.06);
+}
+.gallery-item__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: linear-gradient(0deg, rgba(10, 10, 10, .82), transparent);
+  font-family: var(--font-heading);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--white);
+  pointer-events: none;
+}
+.gallery-item__caption .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red-1);
+  flex-shrink: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item img,
+  .gallery-item video {
+    transition: none;
+  }
 }
 
 /* ---------- Feature cards (Why Platinum) ---------- */
@@ -881,20 +946,49 @@ a:hover { color: var(--red-glow); }
 }
 .service-detail__list li + li { margin-top: 6px; }
 .service-detail__media {
+  position: relative;
   clip-path: var(--diagonal-clip);
-  height: 380px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  background: var(--bg-surface);
 }
-.service-detail__media img {
+/* The one source photo shot landscape gets its own natural ratio instead of
+   being force-cropped square. */
+.service-detail__media--wide { aspect-ratio: 16 / 9; }
+.service-detail__media img,
+.service-detail__media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.service-detail__media .media-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: rgba(10, 10, 10, .68);
+  backdrop-filter: blur(2px);
+  font-family: var(--font-heading);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--white);
+}
+.service-detail__media .media-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red-1);
 }
 
 @media (max-width: 860px) {
   .service-detail { padding: 48px 20px; }
   .service-detail__inner { grid-template-columns: 1fr; gap: 28px; }
-  .service-detail__media { height: 240px; order: -1; }
+  .service-detail__media { order: -1; }
 }
 
 /* ---------- About: comparison grid ---------- */

@@ -233,6 +233,31 @@
     evaluate();
   }
 
+  /* Small looping supporting clips (gallery tiles, service detail media): load
+     and play only while scrolled into view, pause once scrolled away. Never
+     autoplays under reduced motion, poster frame stays static instead. */
+  function initAutoplayVideos() {
+    const videos = document.querySelectorAll('video.autoplay-video[data-autoplay-src]');
+    if (!videos.length || reduceMotion) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          if (!video.src) {
+            video.src = video.dataset.autoplaySrc;
+            video.load();
+          }
+          video.play().catch(() => { /* autoplay can be blocked; poster stays visible */ });
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.35 });
+
+    videos.forEach((video) => observer.observe(video));
+  }
+
   /* Contact form: validate, submit via mailto fallback, show success/error state */
   function initContactForm() {
     const form = document.getElementById('enquiryForm');
@@ -299,6 +324,7 @@
     initSmoothScroll();
     initReveal();
     initHeroCinema();
+    initAutoplayVideos();
     initContactForm();
   });
 })();
