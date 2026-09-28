@@ -266,14 +266,21 @@
     if (!form || !errorEl || !successPanel) return;
 
     const serviceLabels = {
-      'exterior-wash-wax': 'Exterior Wash & Wax',
-      'interior-deep-clean': 'Interior Deep Clean',
-      'paint-protection': 'Paint Protection',
-      'ceramic-coating': 'Ceramic Coating',
-      'mobile-detailing': 'Mobile Detailing',
-      'maintenance-details': 'Maintenance Details',
+      'regular-maintenance': 'Regular Maintenance ($150)',
+      'mini-detail': 'Mini Detail ($180)',
+      'full-detail': 'Full Detail ($360)',
+      'paint-correction': 'Paint Correction (Quote)',
+      'ceramic-coating': 'Ceramic Coating (Quote)',
       'not-sure': 'Not sure, advise me',
     };
+
+    // Pre-select the service dropdown when arriving via a package's
+    // "Book This Detail" / "Get a Quote" link, e.g. contact.html?service=full-detail
+    const serviceField = form.elements.namedItem('service');
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+    if (serviceField && requestedService && requestedService in serviceLabels) {
+      serviceField.value = requestedService;
+    }
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();

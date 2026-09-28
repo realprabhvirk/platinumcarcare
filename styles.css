@@ -601,6 +601,17 @@ a:hover { color: var(--red-glow); }
   font-size: var(--text-heading-lg);
   color: var(--white);
   margin: 0 0 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.service-card__price {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--red-1);
+  font-size: var(--text-heading-lg);
+  white-space: nowrap;
 }
 .service-card__desc {
   font-family: var(--font-body);
@@ -762,6 +773,22 @@ a:hover { color: var(--red-glow); }
      to preview the result in this environment, so this stays conservative. */
   filter: brightness(0.8) contrast(1.05) saturate(0.85);
 }
+
+/* ---------- Pricing disclaimer (fine print, not a warning) ---------- */
+
+.price-disclaimer {
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+  max-width: 640px;
+}
+.price-disclaimer--section {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: var(--border-hairline);
+}
+.price-disclaimer--grid { margin-top: 24px; }
 
 /* ---------- FAQ ---------- */
 
@@ -948,6 +975,45 @@ a:hover { color: var(--red-glow); }
   padding-left: 20px;
 }
 .service-detail__list li + li { margin-top: 6px; }
+.service-detail__note {
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  margin: 14px 0 0;
+}
+.service-detail__price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 8px 0 16px;
+}
+.service-detail__price .amount {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--red-1);
+  font-size: 2.5rem;
+  line-height: 1;
+}
+.service-detail__price .unit {
+  font-family: var(--font-heading);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.service-detail__quote-tag {
+  display: inline-flex;
+  align-items: center;
+  border: var(--border-hairline);
+  padding: 8px 14px;
+  margin: 8px 0 16px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
 .service-detail__media {
   position: relative;
   clip-path: var(--diagonal-clip);
