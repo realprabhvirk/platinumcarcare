@@ -1025,9 +1025,6 @@ a:hover { color: var(--red-glow); }
   overflow: hidden;
   background: var(--bg-surface);
 }
-/* The one source photo shot landscape gets its own natural ratio instead of
-   being force-cropped square. */
-.service-detail__media--wide { aspect-ratio: 16 / 9; }
 .service-detail__media img,
 .service-detail__media video {
   width: 100%;
