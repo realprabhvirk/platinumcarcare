@@ -315,7 +315,7 @@
         `Desired service: ${service}`,
         `Notes: ${notes || 'None'}`,
       ];
-      const mailto = `mailto:bookings@platinumcarcare.com.au?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+      const mailto = `mailto:platinummobliecarcare@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
 
       window.location.href = mailto;
 
