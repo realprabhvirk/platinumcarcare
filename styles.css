@@ -1276,7 +1276,7 @@ textarea.field { resize: vertical; }
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 250ms ease-out, visibility 0s linear 250ms;
+  transition: opacity 150ms ease-out, visibility 0s linear 150ms;
 }
 .cutscene.is-active {
   opacity: 1;

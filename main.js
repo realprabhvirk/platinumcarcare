@@ -333,9 +333,9 @@
      the overlay can never stay stuck. */
   function initPageTransition() {
     const KEY = 'pcc-cutscene';
-    const NAV_AT = 0.9;            // clip second where the car is mid-screen
-    const NAV_FALLBACK_MS = 1500;  // navigate anyway if the clip stalls
-    const HARD_LIMIT_MS = 3500;    // absolute cap on how long the overlay may show
+    const NAV_AT = 0.3;            // clip second where the car is mid-screen
+    const NAV_FALLBACK_MS = 700;   // navigate anyway if the clip stalls
+    const HARD_LIMIT_MS = 2500;    // absolute cap on how long the overlay may show
     const root = document.documentElement;
 
     let arrival = null;
