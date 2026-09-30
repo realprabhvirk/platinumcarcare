@@ -326,6 +326,154 @@
     });
   }
 
+  /* Page transition cutscene: internal link clicks play a short car clip over a
+     black overlay, the outgoing page navigates at the clip's midpoint, and the
+     incoming page picks the clip up where it left off (state handed over via
+     sessionStorage) before fading the overlay out. Every path has a timeout so
+     the overlay can never stay stuck. */
+  function initPageTransition() {
+    const KEY = 'pcc-cutscene';
+    const NAV_AT = 0.9;            // clip second where the car is mid-screen
+    const NAV_FALLBACK_MS = 1500;  // navigate anyway if the clip stalls
+    const HARD_LIMIT_MS = 3500;    // absolute cap on how long the overlay may show
+    const root = document.documentElement;
+
+    let arrival = null;
+    try {
+      arrival = JSON.parse(sessionStorage.getItem(KEY));
+      sessionStorage.removeItem(KEY);
+    } catch (err) { /* storage unavailable, just no handover */ }
+
+    const saveData = navigator.connection && navigator.connection.saveData;
+    if (reduceMotion || saveData) {
+      root.classList.remove('cutscene-arrive');
+      return;
+    }
+    const arriving = !!arrival && Date.now() - arrival.at < 4000;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'cutscene';
+    overlay.setAttribute('aria-hidden', 'true');
+
+    const video = document.createElement('video');
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('disablepictureinpicture', '');
+    video.tabIndex = -1;
+    video.preload = 'auto';
+    video.poster = 'images/car-cutscene-poster.jpg';
+    [['videos/car-cutscene.webm', 'video/webm'], ['videos/car-cutscene.mp4', 'video/mp4']].forEach(([src, type]) => {
+      const source = document.createElement('source');
+      source.src = src;
+      source.type = type;
+      video.appendChild(source);
+    });
+    overlay.appendChild(video);
+    document.body.appendChild(overlay);
+
+    let timers = [];
+    let running = false;
+    let navigated = false;
+    const later = (fn, ms) => { timers.push(setTimeout(fn, ms)); };
+    const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+
+    function hide(instant) {
+      clearTimers();
+      running = false;
+      navigated = false;
+      video.pause();
+      overlay.classList.remove('is-seeking');
+      if (instant) overlay.classList.add('is-instant');
+      overlay.classList.remove('is-active');
+      if (instant) requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.remove('is-instant')));
+    }
+
+    if (arriving) {
+      running = true;
+      overlay.classList.add('is-active', 'is-instant', 'is-seeking');
+      root.classList.remove('cutscene-arrive');
+      requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.remove('is-instant')));
+
+      const offset = Math.max(0, (arrival.vt || 0) + (Date.now() - arrival.at) / 1000);
+      const resume = () => {
+        if (offset >= video.duration - 0.05) { hide(); return; }
+        video.addEventListener('seeked', () => overlay.classList.remove('is-seeking'), { once: true });
+        video.currentTime = offset;
+        video.play().catch(() => hide());
+      };
+      if (video.readyState >= 1) resume();
+      else video.addEventListener('loadedmetadata', resume, { once: true });
+
+      video.addEventListener('ended', () => hide(), { once: true });
+      video.addEventListener('error', () => hide(), { once: true });
+      later(() => hide(), HARD_LIMIT_MS);
+    } else {
+      root.classList.remove('cutscene-arrive');
+      video.load();
+    }
+
+    function isCutsceneLink(link) {
+      const href = link.getAttribute('href');
+      if (!href || href.charAt(0) === '#') return false;
+      if (link.target && link.target !== '_self') return false;
+      if (link.hasAttribute('download')) return false;
+      let url;
+      try { url = new URL(link.href, window.location.href); } catch (err) { return false; }
+      if (url.protocol !== window.location.protocol || url.origin !== window.location.origin) return false;
+      if (!/(\/|\.html?)$/.test(url.pathname)) return false;
+      if (url.pathname === window.location.pathname && url.search === window.location.search) return false;
+      return true;
+    }
+
+    function play(href) {
+      running = true;
+      navigated = false;
+      overlay.classList.remove('is-seeking');
+      video.currentTime = 0;
+      const started = video.play();
+
+      const go = () => {
+        if (navigated) return;
+        navigated = true;
+        try { sessionStorage.setItem(KEY, JSON.stringify({ at: Date.now(), vt: video.currentTime })); } catch (err) { /* no handover */ }
+        window.location.href = href;
+      };
+
+      if (started && started.catch) {
+        started.catch(() => { hide(); window.location.href = href; });
+      }
+      overlay.classList.add('is-active');
+
+      const watch = () => {
+        if (navigated || !running) return;
+        if (video.currentTime >= NAV_AT) go();
+        else requestAnimationFrame(watch);
+      };
+      requestAnimationFrame(watch);
+      later(go, NAV_FALLBACK_MS);
+      later(() => hide(), HARD_LIMIT_MS);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = e.target.closest && e.target.closest('a[href]');
+      if (!link || !isCutsceneLink(link)) return;
+      e.preventDefault();
+      if (running) return;
+      play(link.href);
+    });
+
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) hide(true);
+    });
+  }
+
+  initPageTransition();
+
   document.addEventListener('DOMContentLoaded', () => {
     initNav();
     initSmoothScroll();
